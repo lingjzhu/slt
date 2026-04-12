@@ -1,0 +1,50 @@
+# apptainer.def
+Bootstrap: docker
+From: pytorch/pytorch:2.8.0-cuda12.8-cudnn9-devel
+
+%post
+    mkdir -p /project
+    mkdir -p /scratch
+    # Update apt-get
+    apt-get update -y
+    apt-get upgrade -y
+    
+    # Install pip and dependencies for vLLM
+    apt-get install -y \
+        build-essential \
+        libopenblas-dev \
+        libomp-dev \
+        git \
+        curl
+    
+    conda install "ffmpeg<7" -c conda-forge
+    # Install vLLM and its dependencies
+    pip install transformers
+    pip install bitsandbytes
+    pip install liger-kernel
+    pip install -U moviepy gtts pillow
+    pip install torchcodec
+    pip install lhotse
+    pip install pytorch_lightning beartype decord einops imageio opencv_python
+    pip install Pillow scikit_video timm av PyWavelets webdataset accelerate datasets
+    pip install av lightning hydra-core omegaconf timm einops psutil wandb iopath
+    
+    # Clean up to reduce image size
+    apt-get clean
+    rm -rf /var/lib/apt/lists/*
+
+%runscript
+    # Command to run when the container is executed
+    exec python3 "$@"
+
+%test
+    echo "Running container test..."
+    
+    python -c "import timm"
+    python -c "from omegaconf import DictConfig, OmegaConf"
+    python -c "from hydra.core.config_store import ConfigStore"
+    python -c "import torch.backends.cudnn as cudnn"
+    python -c "from iopath.common.file_io import g_pathmgr as pathmgr"
+    python -c "import torch"
+    python -c "import torchvision"
+    python -c "import lightning"

@@ -1,0 +1,35 @@
+# @package _global_
+
+defaults:
+  - base_config
+  - _self_
+  - run: local
+
+common:
+  bf16: true
+  fp16: false
+
+data:
+  base_data_dir: ???
+  dataset_names: ???
+  video_backend: pyav
+  num_frames: 128
+  sampling_rate: 1
+  target_fps: 8
+  min_duration: 1.0
+  max_duration: 16.0
+  rand_aug: true
+  repeat_aug: 1
+
+wandb:
+  enabled: true
+  project: ssvp-pretraining
+
+optim:
+  batch_size: 8
+  gradient_accumulation_steps: 4
+  warmup_epochs: 0.05
+  epochs: 5
+  lr: 8e-4
+  min_lr: 1e-5
+  clip_grad: 1.0

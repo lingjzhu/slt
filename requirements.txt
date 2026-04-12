@@ -1,0 +1,22 @@
+# Install a CUDA-matched PyTorch/torchvision build separately if needed.
+torch
+torchvision
+av
+lightning
+
+hydra-core
+omegaconf
+timm
+einops
+numpy
+psutil
+wandb
+transformers
+datasets
+sacrebleu
+rouge-score
+nltk
+bleurt
+
+# Optional: used when available for more flexible filesystem I/O.
+iopath

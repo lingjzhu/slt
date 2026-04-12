@@ -1,0 +1,10 @@
+codebase/
+ssvp_slt/
+
+outputs/
+wandb/
+local/pretrained/
+*.sif
+
+__pycache__/
+*.py[cod]
