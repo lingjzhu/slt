@@ -32,6 +32,12 @@ import torch.nn as nn
 from .sign_hiera import SignHiera, SignHieraBlock
 from .sign_hiera_utils import conv_nd, pretrained_model, undo_windowing
 
+try:
+    from .triton_kernels import fused_decoder_assembly as _fused_decoder_assembly
+    _HAS_FUSED_DECODER = True
+except Exception:
+    _HAS_FUSED_DECODER = False
+
 
 LOCAL_PRETRAINED_DIR = Path(__file__).resolve().parents[3] / "local" / "pretrained"
 LOCAL_MAE_HIERA_BASE_16 = str(LOCAL_PRETRAINED_DIR / "mae_hiera_base_16x224.pth")
@@ -203,12 +209,15 @@ class MaskedAutoencoderSignHiera(SignHiera):
         mask_ratio: float,
         mask: Optional[torch.Tensor] = None,
         attn_mask: Optional[torch.Tensor] = None,
+        has_padding: Optional[bool] = None,
     ) -> Tuple[torch.Tensor, ...]:
         if mask is None:
             mask = self.get_random_mask(x, mask_ratio, attn_mask=attn_mask)  # [B, #MUs_all]
 
         # Get multi-scale representations from encoder
-        _, intermediates = super().forward(x, mask, attn_mask=attn_mask, return_intermediates=True)
+        _, intermediates = super().forward(
+            x, mask, attn_mask=attn_mask, return_intermediates=True, has_padding=has_padding
+        )
 
         return intermediates[-1], mask
 
@@ -219,12 +228,15 @@ class MaskedAutoencoderSignHiera(SignHiera):
         mask: Optional[torch.Tensor] = None,
         attn_mask: Optional[torch.Tensor] = None,
         return_last_intermediate: bool = False,
+        has_padding: Optional[bool] = None,
     ) -> Tuple[torch.Tensor, torch.Tensor]:
         if mask is None:
             mask = self.get_random_mask(x, mask_ratio, attn_mask=attn_mask)  # [B, #MUs_all]
 
         # Get multi-scale representations from encoder
-        _, intermediates = super().forward(x, mask, attn_mask=attn_mask, return_intermediates=True)
+        _, intermediates = super().forward(
+            x, mask, attn_mask=attn_mask, return_intermediates=True, has_padding=has_padding
+        )
         if return_last_intermediate:
             last_intermediate = intermediates[-1]
 
@@ -243,7 +255,11 @@ class MaskedAutoencoderSignHiera(SignHiera):
         return x, mask
 
     def forward_decoder(
-        self, x: torch.Tensor, mask: torch.Tensor, attn_mask: Optional[torch.Tensor] = None
+        self,
+        x: torch.Tensor,
+        mask: torch.Tensor,
+        attn_mask: Optional[torch.Tensor] = None,
+        has_padding: Optional[bool] = None,
     ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         # Embed tokens
         x = self.decoder_embed(x)
@@ -253,23 +269,48 @@ class MaskedAutoencoderSignHiera(SignHiera):
             attn_mask = torch.ones(
                 (x.shape[0], math.prod(self.mask_spatial_shape)), device=x.device
             )
+            if has_padding is None:
+                has_padding = False
 
         # Combine visible and mask tokens
 
         # x: [B, #MUs, *mask_unit_spatial_shape_final, encoder_dim_out]
         # mask: [B, #MUs_all]
 
-        x_dec = torch.zeros(*mask.shape, *x.shape[2:], device=x.device, dtype=x.dtype)
-
-        mask_tokens = self.mask_token.view((1,) * (len(mask.shape) + len(x.shape[2:-1])) + (-1,))
-        mask = mask.reshape(mask.shape + (1,) * len(x.shape[2:]))
-        attn_mask = attn_mask.reshape(attn_mask.shape + (1,) * len(x.shape[2:-1]))
-
-        mask = mask.expand((-1,) * 2 + x.shape[2:]).bool()
-        attn_mask = attn_mask.expand((-1,) * 2 + x.shape[2:-1]).bool()
-
-        x_dec[mask] = x.flatten()
-        x_dec = ~mask * mask_tokens + mask * x_dec
+        # Fused assembly: scatter visible tokens + fill mask tokens in one kernel.
+        # x: (B, N_vis, H, W, D)  mask: (B, N_all) bool  mask_token: (1,1,D)
+        use_fused = (
+            _HAS_FUSED_DECODER
+            and x.is_cuda
+            and getattr(self, "use_fused_decoder_assembly", True)
+        )
+        if use_fused and x.dim() == 5:
+            mask_bool = mask.bool()
+            x_dec = _fused_decoder_assembly(
+                x, mask_bool, self.mask_token.view(-1)
+            )
+            # Expand mask / attn_mask to match x_dec layout expected downstream.
+            mask = mask_bool.reshape(mask_bool.shape + (1,) * len(x.shape[2:]))
+            attn_mask = attn_mask.reshape(
+                attn_mask.shape + (1,) * len(x.shape[2:-1])
+            )
+            mask = mask.expand((-1,) * 2 + x.shape[2:])
+            attn_mask = attn_mask.expand((-1,) * 2 + x.shape[2:-1]).bool()
+        else:
+            x_dec = torch.zeros(
+                *mask.shape, *x.shape[2:], device=x.device, dtype=x.dtype
+            )
+            mask_tokens = self.mask_token.view(
+                (1,) * (len(mask.shape) + len(x.shape[2:-1])) + (-1,)
+            )
+            mask = mask.reshape(mask.shape + (1,) * len(x.shape[2:]))
+            attn_mask = attn_mask.reshape(
+                attn_mask.shape + (1,) * len(x.shape[2:-1])
+            )
+            mask = mask.expand((-1,) * 2 + x.shape[2:]).bool()
+            attn_mask = attn_mask.expand((-1,) * 2 + x.shape[2:-1]).bool()
+            x_dec[mask] = x.flatten()
+            x_dec = ~mask * mask_tokens + mask * x_dec
 
         # Get back spatial order
         x = undo_windowing(
@@ -298,7 +339,7 @@ class MaskedAutoencoderSignHiera(SignHiera):
 
         # Apply decoder blocks
         for i, blk in enumerate(self.decoder_blocks):
-            x = blk(x, attn_mask=attn_mask)
+            x = blk(x, attn_mask=attn_mask, has_padding=has_padding)
         x = self.decoder_norm(x)
 
         # Predictor projection
@@ -339,6 +380,10 @@ class MaskedAutoencoderSignHiera(SignHiera):
     ) -> Tuple[torch.Tensor, ...]:
         if padding is not None:
             attn_mask = self.get_attention_mask(padding, device=x.device)
+            # One D→H sync here, shared across encoder + decoder blocks.
+            has_padding = bool(torch.any(attn_mask == 0))
+        else:
+            has_padding = False if attn_mask is None else None
 
         encoder_outputs = self.forward_encoder(
             x,
@@ -346,12 +391,13 @@ class MaskedAutoencoderSignHiera(SignHiera):
             mask=mask,
             attn_mask=attn_mask,
             return_last_intermediate=return_last_intermediate,
+            has_padding=has_padding,
         )
         latent = encoder_outputs[0]
         mask = encoder_outputs[1]
 
         pred, pred_mask, attn_mask = self.forward_decoder(
-            latent, mask, attn_mask=attn_mask
+            latent, mask, attn_mask=attn_mask, has_padding=has_padding
         )  # pred_mask is mask at resolution of *prediction*
 
         # Only compute loss for tokens that are masked *and* are attended to (i.e., no padding)

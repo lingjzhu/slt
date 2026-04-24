@@ -8,3 +8,32 @@ local/pretrained/
 
 __pycache__/
 *.py[cod]
+
+test_output/
+tmp_test/
+dev.tar
+
+# Local ISLR datasets, derived webdatasets, and training artifacts
+islr/Annotation/
+islr/checkpoints/
+islr/data/
+islr/logs/
+islr/webdataset/
+islr/webdataset_224/
+islr/webdataset_224_leanvae_latents/
+islr/webdataset_224_leanvae_latents_smoke/
+islr/*.zip
+islr/rclone
+
+# Fold PEAR into this repo without carrying over its nested Git metadata
+PEAR/.git/
+PEAR/**/__pycache__/
+PEAR/**/.ipynb_checkpoints/
+PEAR/assets.zip
+PEAR/sample_outputs/
+
+# Large PEAR assets exceed GitHub's file size limits
+PEAR/assets/FLAME/FLAME2020/
+PEAR/assets/SMPL/
+PEAR/assets/SMPLX/
+PEAR/assets/SMPLX2SMPL/

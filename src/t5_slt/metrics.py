@@ -8,6 +8,7 @@ from typing import Any
 import numpy as np
 import sacrebleu
 from rouge_score import rouge_scorer
+from .data import normalize_text
 
 
 def _compute_bleu_from_stats(
@@ -61,13 +62,18 @@ def _compute_meteor(predictions: list[str], references: list[str]) -> float:
 
 
 def compute_translation_metrics(predictions: list[str], references: list[str]) -> dict[str, float]:
-    predictions = [text.strip() for text in predictions]
-    references = [text.strip() for text in references]
+    predictions = [normalize_text(text) for text in predictions]
+    references = [normalize_text(text) for text in references]
+
+    exact_matches = [int(pred == ref) for pred, ref in zip(predictions, references)]
+    accuracy = float(np.mean(exact_matches)) if exact_matches else 0.0
 
     bleu = sacrebleu.corpus_bleu(predictions, [references])
     chrf = sacrebleu.corpus_chrf(predictions, [references]).score
 
     metrics = {
+        "accuracy": accuracy,
+        "exact_match": accuracy,
         "bleu1": _compute_bleu_from_stats(bleu.counts, bleu.totals, bleu.sys_len, bleu.ref_len, 1),
         "bleu2": _compute_bleu_from_stats(bleu.counts, bleu.totals, bleu.sys_len, bleu.ref_len, 2),
         "bleu3": _compute_bleu_from_stats(bleu.counts, bleu.totals, bleu.sys_len, bleu.ref_len, 3),
@@ -82,6 +88,8 @@ def compute_translation_metrics(predictions: list[str], references: list[str]) -
 def compute_bleurt(predictions: list[str], references: list[str]) -> float:
     import evaluate
 
+    predictions = [normalize_text(text) for text in predictions]
+    references = [normalize_text(text) for text in references]
     bleurt_metric = evaluate.load("bleurt", module_type="metric", config_name="BLEURT-20")
     scores = bleurt_metric.compute(predictions=predictions, references=references)["scores"]
     return float(np.mean(scores)) if scores else 0.0

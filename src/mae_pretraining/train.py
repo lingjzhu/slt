@@ -64,6 +64,12 @@ def main(cfg: DictConfig):
     else:
         model_without_ddp = model
 
+    # Optional torch.compile — fixed-shape model benefits from graph fusion.
+    if getattr(cfg.common, "compile", False):
+        compile_mode = getattr(cfg.common, "compile_mode", "default")
+        print(f"Compiling model with torch.compile (mode={compile_mode})")
+        model = torch.compile(model, mode=compile_mode, dynamic=False)
+
     optimizer, loss_scaler = create_optimizer_and_loss_scaler(cfg, model_without_ddp)
 
     misc.load_checkpoint(

@@ -12,6 +12,8 @@ numpy
 psutil
 wandb
 transformers
+sentence-transformers
+webdataset
 datasets
 sacrebleu
 rouge-score

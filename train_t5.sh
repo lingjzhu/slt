@@ -21,19 +21,18 @@ exec torchrun --standalone --nproc_per_node=4 -m t5_slt.train \
   --model-name-or-path google/t5-v1_1-base \
   --feature-dim 768 \
   --prompt-template "translate to {language}" \
-  --attn-implementation sdpa \
-  --num-train-epochs 10 \
-  --learning-rate 3e-4 \
+  --num-train-epochs 30 \
+  --learning-rate 1e-4 \
   --weight-decay 0.01 \
   --warmup-ratio 0.03 \
-  --train-batch-size 8 \
-  --eval-batch-size 8 \
-  --gradient-accumulation-steps 2 \
+  --train-batch-size 64 \
+  --eval-batch-size 16 \
+  --gradient-accumulation-steps 1 \
   --max-source-length 512 \
   --max-target-length 128 \
   --generation-max-length 128 \
   --num-beams 4 \
-  --logging-steps 25 \
+  --logging-steps 10 \
   --dataloader-num-workers 8 \
   --wandb-project "${WANDB_PROJECT}" \
   --wandb-run-name "${WANDB_NAME}"

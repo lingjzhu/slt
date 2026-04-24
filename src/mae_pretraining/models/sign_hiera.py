@@ -87,8 +87,17 @@ class MaskUnitAttention(nn.Module):
         self.window_size = window_size
         self.use_mask_unit_attn = use_mask_unit_attn
 
-    def forward(self, x: torch.Tensor, attn_mask: torch.Tensor) -> torch.Tensor:
-        """Input should be of shape [batch, tokens, channels]."""
+    def forward(
+        self,
+        x: torch.Tensor,
+        attn_mask: torch.Tensor,
+        has_padding: Optional[bool] = None,
+    ) -> torch.Tensor:
+        """Input should be of shape [batch, tokens, channels].
+
+        has_padding: Python bool computed once at the top of the model forward to
+        avoid per-layer device→host syncs. If None, falls back to a GPU check.
+        """
 
         B, N, _ = x.shape
         num_windows = (
@@ -102,11 +111,15 @@ class MaskUnitAttention(nn.Module):
         )
         q, k, v = qkv[0], qkv[1], qkv[2]
 
-        # [B, N, 1] -> [B, W, N//W]
-        attn_mask = attn_mask.reshape(B, -1, num_windows).permute(0, 2, 1)
-        # [B, W, N//W] -> [B, H=1, W, L=1, N//W]
-        attn_mask = attn_mask[:, None, :, None, :]
-        attn_mask = torch.where(attn_mask == 0, -float("inf"), attn_mask)
+        need_mask = (not self.use_mask_unit_attn) and (
+            has_padding if has_padding is not None else bool(torch.any(attn_mask == 0))
+        )
+
+        if need_mask:
+            # [B, N, 1] -> [B, W, N//W] -> [B, H=1, W, L=1, N//W]
+            attn_mask = attn_mask.reshape(B, -1, num_windows).permute(0, 2, 1)
+            attn_mask = attn_mask[:, None, :, None, :]
+            attn_mask = torch.where(attn_mask == 0, -float("inf"), attn_mask)
 
         if self.q_stride > 1:
             # Refer to Unroll to see how this performs a maxpool-Nd
@@ -120,32 +133,27 @@ class MaskUnitAttention(nn.Module):
         # This is because we do attention masking at the level of mask units, so when doing mask unit attention,
         # the attention mask would either be true or false for the full window, which is not useful
         if hasattr(F, "scaled_dot_product_attention"):
-            # Note: the original paper did *not* use SDPA, it's a free boost!
-            # Reshape to 4D to enable FlashAttention / memory-efficient kernels
             if self.use_mask_unit_attn:
-                # MU attention: each window is small, 5D SDPA is fine (no mask needed)
                 x = F.scaled_dot_product_attention(q, k, v)
             elif num_windows == 1:
                 # Full attention: squeeze singleton window dim → [B, H, N, D]
                 q = q.squeeze(2)
                 k = k.squeeze(2)
                 v = v.squeeze(2)
-                # Check if all tokens are unmasked → skip mask for FlashAttention
-                has_padding = torch.any(attn_mask == -float("inf"))
-                if has_padding:
+                if need_mask:
                     mask_4d = attn_mask.squeeze(2)  # [B, 1, 1, N]
                     x = F.scaled_dot_product_attention(q, k, v, attn_mask=mask_4d)
                 else:
                     x = F.scaled_dot_product_attention(q, k, v)
-                x = x.unsqueeze(2)  # restore window dim for reshape below
+                x = x.unsqueeze(2)
             else:
                 x = F.scaled_dot_product_attention(
-                    q, k, v, attn_mask=attn_mask
+                    q, k, v, attn_mask=attn_mask if need_mask else None
                 )
         else:
             attn = (q * self.scale) @ k.transpose(-1, -2)
-            if not self.use_mask_unit_attn:
-                attn += attn_mask
+            if need_mask:
+                attn = attn + attn_mask
             attn = attn.softmax(dim=-1)
             x = attn @ v
 
@@ -186,12 +194,19 @@ class SignHieraBlock(nn.Module):
         if dim != dim_out:
             self.proj = nn.Linear(dim, dim_out)
 
-    def forward(self, x: torch.Tensor, attn_mask: torch.Tensor) -> torch.Tensor:
+    def forward(
+        self,
+        x: torch.Tensor,
+        attn_mask: torch.Tensor,
+        has_padding: Optional[bool] = None,
+    ) -> torch.Tensor:
         # Attention + Q Pooling
         x_norm = self.norm1(x)
         if self.dim != self.dim_out:
             x = do_pool(self.proj(x_norm), stride=self.attn.q_stride)
-        x = x + self.drop_path(self.attn(x_norm, attn_mask=attn_mask))
+        x = x + self.drop_path(
+            self.attn(x_norm, attn_mask=attn_mask, has_padding=has_padding)
+        )
 
         # MLP
         x = x + self.drop_path(self.mlp(self.norm2(x)))
@@ -429,20 +444,13 @@ class SignHiera(nn.Module):
                 ),
             ] = -100
 
-        # Sort noise for each sample
-        ids_shuffle = torch.argsort(
-            noise, dim=1
-        )  # ascend: small is keep, large is remove
-        ids_restore = torch.argsort(ids_shuffle, dim=1)
+        # Select the len_keep smallest-noise indices (1 = keep, 0 = remove)
+        # topk with largest=False is O(N log k), cheaper than a full argsort.
+        keep_idx = torch.topk(noise, k=len_keep, dim=1, largest=False, sorted=False).indices
+        mask = torch.zeros([B, num_windows], device=x.device, dtype=torch.bool)
+        mask.scatter_(1, keep_idx, True)
 
-        # Generate the binary mask: 1 is *keep*, 0 is *remove*
-        # Note this is opposite to original MAE
-        mask = torch.zeros([B, num_windows], device=x.device)
-        mask[:, :len_keep] = 1
-        # Unshuffle to get the binary mask
-        mask = torch.gather(mask, dim=1, index=ids_restore)
-
-        return mask.bool()
+        return mask
 
     def get_attention_mask(
         self, padding: torch.Tensor, device: torch.device
@@ -450,20 +458,20 @@ class SignHiera(nn.Module):
         """
         Creates a temporal attention mask based on the number of padding frames
         """
-        attn_mask = torch.ones(
-            (padding.shape[0], math.prod(self.mask_spatial_shape)), device=device
-        )
+        total = math.prod(self.mask_spatial_shape)
 
-        # #MUs that are padded
+        # #MUs that are padded (per sample)
         num_padding_mus = (
             (padding // (self.mask_unit_size[0] * self.patch_stride[0]))
             * self.mask_spatial_shape[1]
             * self.mask_spatial_shape[2]
-        )
+        ).to(device=device, dtype=torch.long)
 
-        for i in range(num_padding_mus.shape[0]):
-            if num_padding_mus[i] > 0:
-                attn_mask[i, -num_padding_mus[i] :] = 0
+        # Positions counted from the end: index i is padded iff (total - i) <= num_padding_mus.
+        # Equivalently, mask[b, j] = 1 iff j < total - num_padding_mus[b].
+        pos = torch.arange(total, device=device).unsqueeze(0)  # [1, total]
+        keep_len = (total - num_padding_mus).unsqueeze(1)       # [B, 1]
+        attn_mask = (pos < keep_len).to(dtype=torch.float32)
 
         return attn_mask
 
@@ -485,6 +493,7 @@ class SignHiera(nn.Module):
         mask: torch.Tensor = None,
         attn_mask: torch.Tensor = None,
         return_intermediates: bool = False,
+        has_padding: Optional[bool] = None,
     ) -> Union[torch.Tensor, Tuple[torch.Tensor, torch.Tensor]]:
         """
         mask should be a boolean tensor of shape [B, #MUt*#MUy*#MUx] where #MU are the number of mask units in that dim.
@@ -499,6 +508,10 @@ class SignHiera(nn.Module):
             attn_mask = torch.ones(
                 (x.shape[0], math.prod(self.mask_spatial_shape)), device=x.device
             )
+            has_padding = False
+        elif has_padding is None:
+            # One D→H sync here, instead of one per attention layer.
+            has_padding = bool(torch.any(attn_mask == 0))
 
         intermediates = []
 
@@ -532,7 +545,7 @@ class SignHiera(nn.Module):
             ].view(attn_mask.shape[0], -1, attn_mask.shape[-1])
 
         for i, blk in enumerate(self.blocks):
-            x = blk(x, attn_mask=attn_mask)
+            x = blk(x, attn_mask=attn_mask, has_padding=has_padding)
 
             # Downsample attention mask
             if i in self.q_pool_blocks:

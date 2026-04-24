@@ -100,19 +100,20 @@ def train_one_epoch(
         if (data_iter_step + 1) % cfg.optim.gradient_accumulation_steps == 0:
             optimizer.zero_grad()
 
-        if device.type == "cuda":
-            torch.cuda.synchronize()
-
         metric_logger.update(loss=loss_value)
         metric_logger.update(grad_norm=grad_norm)
         lr = optimizer.param_groups[0]["lr"]
         metric_logger.update(lr=lr)
 
         metric_logger.update(time=time.time() - end)
-        if (
+        is_print_step = (
             data_iter_step % (cfg.optim.gradient_accumulation_steps * cfg.common.print_steps) == 0
             or data_iter_step == num_batches_in_epoch - 1
-        ):
+        )
+        if is_print_step:
+            # Sync only when we're about to print so wall-clock numbers are accurate.
+            if device.type == "cuda":
+                torch.cuda.synchronize()
             eta_seconds = metric_logger.meters["time"].global_avg * (
                 num_batches_in_epoch - data_iter_step
             )

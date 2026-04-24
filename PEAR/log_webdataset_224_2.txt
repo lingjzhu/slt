@@ -1,0 +1,623 @@
+Processing list: webdataset_224_list_2.txt
+Input root: /home/slimelab/Projects/slt/islr/webdataset_224
+Output root: /mnt/data2/sign_language_24fps
+Skipping completed shard: asl_citizen/test/test-000000.tar
+Skipping completed shard: asl_citizen/test/test-000001.tar
+Skipping completed shard: asl_citizen/train/train-000019.tar
+----------------------------------------------------------------
+Processing: asl_citizen/test/test-000002.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/asl_citizen/test/test-000002.tar -> /mnt/data2/sign_language_24fps/asl_citizen/test/test-000002.tar
+  samples=1000 skipped=0
+Successfully completed: asl_citizen/test/test-000002.tar
+----------------------------------------------------------------
+Processing: asl_citizen/train/train-000014.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/asl_citizen/train/train-000014.tar -> /mnt/data2/sign_language_24fps/asl_citizen/train/train-000014.tar
+  samples=1000 skipped=0
+Successfully completed: asl_citizen/train/train-000014.tar
+----------------------------------------------------------------
+Processing: asl_citizen/val/val-000001.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/asl_citizen/val/val-000001.tar -> /mnt/data2/sign_language_24fps/asl_citizen/val/val-000001.tar
+  samples=1000 skipped=0
+Successfully completed: asl_citizen/val/val-000001.tar
+----------------------------------------------------------------
+Processing: asl_citizen/train/train-000025.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/asl_citizen/train/train-000025.tar -> /mnt/data2/sign_language_24fps/asl_citizen/train/train-000025.tar
+  samples=1000 skipped=0
+Successfully completed: asl_citizen/train/train-000025.tar
+----------------------------------------------------------------
+Processing: asl_citizen/train/train-000029.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/asl_citizen/train/train-000029.tar -> /mnt/data2/sign_language_24fps/asl_citizen/train/train-000029.tar
+  samples=1000 skipped=0
+Successfully completed: asl_citizen/train/train-000029.tar
+----------------------------------------------------------------
+Processing: asl_citizen/val/val-000007.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/asl_citizen/val/val-000007.tar -> /mnt/data2/sign_language_24fps/asl_citizen/val/val-000007.tar
+  samples=1000 skipped=0
+Successfully completed: asl_citizen/val/val-000007.tar
+----------------------------------------------------------------
+Processing: asl_citizen/test/test-000008.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/asl_citizen/test/test-000008.tar -> /mnt/data2/sign_language_24fps/asl_citizen/test/test-000008.tar
+  samples=1000 skipped=0
+Successfully completed: asl_citizen/test/test-000008.tar
+----------------------------------------------------------------
+Processing: asl_citizen/val/val-000009.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/asl_citizen/val/val-000009.tar -> /mnt/data2/sign_language_24fps/asl_citizen/val/val-000009.tar
+  samples=1000 skipped=0
+Successfully completed: asl_citizen/val/val-000009.tar
+----------------------------------------------------------------
+Processing: asl_citizen/test/test-000029.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/asl_citizen/test/test-000029.tar -> /mnt/data2/sign_language_24fps/asl_citizen/test/test-000029.tar
+  samples=1000 skipped=0
+Successfully completed: asl_citizen/test/test-000029.tar
+----------------------------------------------------------------
+Processing: asl_citizen/train/train-000001.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/asl_citizen/train/train-000001.tar -> /mnt/data2/sign_language_24fps/asl_citizen/train/train-000001.tar
+  samples=1000 skipped=0
+Successfully completed: asl_citizen/train/train-000001.tar
+----------------------------------------------------------------
+Processing: asl_citizen/train/train-000016.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/asl_citizen/train/train-000016.tar -> /mnt/data2/sign_language_24fps/asl_citizen/train/train-000016.tar
+  samples=1000 skipped=0
+Successfully completed: asl_citizen/train/train-000016.tar
+----------------------------------------------------------------
+Processing: asl_citizen/train/train-000004.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/asl_citizen/train/train-000004.tar -> /mnt/data2/sign_language_24fps/asl_citizen/train/train-000004.tar
+  samples=1000 skipped=0
+Successfully completed: asl_citizen/train/train-000004.tar
+----------------------------------------------------------------
+Processing: asl_citizen/train/train-000003.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/asl_citizen/train/train-000003.tar -> /mnt/data2/sign_language_24fps/asl_citizen/train/train-000003.tar
+  samples=1000 skipped=0
+Successfully completed: asl_citizen/train/train-000003.tar
+----------------------------------------------------------------
+Processing: asl_citizen/val/val-000008.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/asl_citizen/val/val-000008.tar -> /mnt/data2/sign_language_24fps/asl_citizen/val/val-000008.tar
+  samples=1000 skipped=0
+Successfully completed: asl_citizen/val/val-000008.tar
+----------------------------------------------------------------
+Processing: asl_citizen/train/train-000005.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/asl_citizen/train/train-000005.tar -> /mnt/data2/sign_language_24fps/asl_citizen/train/train-000005.tar
+  samples=1000 skipped=0
+Successfully completed: asl_citizen/train/train-000005.tar
+----------------------------------------------------------------
+Processing: asl_citizen/train/train-000036.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/asl_citizen/train/train-000036.tar -> /mnt/data2/sign_language_24fps/asl_citizen/train/train-000036.tar
+  samples=1000 skipped=0
+Successfully completed: asl_citizen/train/train-000036.tar
+----------------------------------------------------------------
+Processing: asl_citizen/test/test-000016.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/asl_citizen/test/test-000016.tar -> /mnt/data2/sign_language_24fps/asl_citizen/test/test-000016.tar
+  samples=1000 skipped=0
+Successfully completed: asl_citizen/test/test-000016.tar
+----------------------------------------------------------------
+Processing: asl_citizen/val/val-000000.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/asl_citizen/val/val-000000.tar -> /mnt/data2/sign_language_24fps/asl_citizen/val/val-000000.tar
+  samples=1000 skipped=0
+Successfully completed: asl_citizen/val/val-000000.tar
+----------------------------------------------------------------
+Processing: asl_citizen/train/train-000012.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/asl_citizen/train/train-000012.tar -> /mnt/data2/sign_language_24fps/asl_citizen/train/train-000012.tar
+  samples=1000 skipped=0
+Successfully completed: asl_citizen/train/train-000012.tar
+----------------------------------------------------------------
+Processing: asl_citizen/test/test-000024.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/asl_citizen/test/test-000024.tar -> /mnt/data2/sign_language_24fps/asl_citizen/test/test-000024.tar
+  samples=1000 skipped=0
+Successfully completed: asl_citizen/test/test-000024.tar
+----------------------------------------------------------------
+Processing: asl_citizen/test/test-000020.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/asl_citizen/test/test-000020.tar -> /mnt/data2/sign_language_24fps/asl_citizen/test/test-000020.tar
+  samples=1000 skipped=0
+Successfully completed: asl_citizen/test/test-000020.tar
+----------------------------------------------------------------
+Processing: asl_citizen/train/train-000011.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/asl_citizen/train/train-000011.tar -> /mnt/data2/sign_language_24fps/asl_citizen/train/train-000011.tar
+  samples=1000 skipped=0
+Successfully completed: asl_citizen/train/train-000011.tar
+----------------------------------------------------------------
+Processing: asl_citizen/test/test-000031.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/asl_citizen/test/test-000031.tar -> /mnt/data2/sign_language_24fps/asl_citizen/test/test-000031.tar
+  samples=1000 skipped=0
+Successfully completed: asl_citizen/test/test-000031.tar
+----------------------------------------------------------------
+Processing: asl_citizen/train/train-000039.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/asl_citizen/train/train-000039.tar -> /mnt/data2/sign_language_24fps/asl_citizen/train/train-000039.tar
+  samples=1000 skipped=0
+Successfully completed: asl_citizen/train/train-000039.tar
+----------------------------------------------------------------
+Processing: asl_citizen/test/test-000032.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/asl_citizen/test/test-000032.tar -> /mnt/data2/sign_language_24fps/asl_citizen/test/test-000032.tar
+  samples=941 skipped=0
+Successfully completed: asl_citizen/test/test-000032.tar
+----------------------------------------------------------------
+Processing: wlasl/train/train-000002.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/wlasl/train/train-000002.tar -> /mnt/data2/sign_language_24fps/wlasl/train/train-000002.tar
+  samples=1000 skipped=0
+Successfully completed: wlasl/train/train-000002.tar
+----------------------------------------------------------------
+Processing: wlasl/train/train-000007.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/wlasl/train/train-000007.tar -> /mnt/data2/sign_language_24fps/wlasl/train/train-000007.tar
+  samples=1000 skipped=0
+Successfully completed: wlasl/train/train-000007.tar
+----------------------------------------------------------------
+Processing: wlasl/train/train-000011.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/wlasl/train/train-000011.tar -> /mnt/data2/sign_language_24fps/wlasl/train/train-000011.tar
+  samples=1000 skipped=0
+Successfully completed: wlasl/train/train-000011.tar
+----------------------------------------------------------------
+Processing: wlasl/train/train-000003.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/wlasl/train/train-000003.tar -> /mnt/data2/sign_language_24fps/wlasl/train/train-000003.tar
+  samples=1000 skipped=0
+Successfully completed: wlasl/train/train-000003.tar
+----------------------------------------------------------------
+Processing: wlasl/test/test-000000.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/wlasl/test/test-000000.tar -> /mnt/data2/sign_language_24fps/wlasl/test/test-000000.tar
+  samples=1000 skipped=0
+Successfully completed: wlasl/test/test-000000.tar
+----------------------------------------------------------------
+Processing: wlasl/train/train-000013.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/wlasl/train/train-000013.tar -> /mnt/data2/sign_language_24fps/wlasl/train/train-000013.tar
+  samples=1000 skipped=0
+Successfully completed: wlasl/train/train-000013.tar
+----------------------------------------------------------------
+Processing: wlasl/test/test-000002.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/wlasl/test/test-000002.tar -> /mnt/data2/sign_language_24fps/wlasl/test/test-000002.tar
+  samples=878 skipped=0
+Successfully completed: wlasl/test/test-000002.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000095.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000095.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000095.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000095.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000076.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000076.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000076.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000076.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000045.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000045.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000045.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000045.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000117.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000117.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000117.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000117.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000100.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000100.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000100.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000100.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000052.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000052.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000052.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000052.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000030.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000030.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000030.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000030.tar
+----------------------------------------------------------------
+Processing: csl_large/test/test-000010.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/test/test-000010.tar -> /mnt/data2/sign_language_24fps/csl_large/test/test-000010.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/test/test-000010.tar
+----------------------------------------------------------------
+Processing: csl_large/test/test-000003.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/test/test-000003.tar -> /mnt/data2/sign_language_24fps/csl_large/test/test-000003.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/test/test-000003.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000111.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000111.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000111.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000111.tar
+----------------------------------------------------------------
+Processing: csl_large/test/test-000006.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/test/test-000006.tar -> /mnt/data2/sign_language_24fps/csl_large/test/test-000006.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/test/test-000006.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000113.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000113.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000113.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000113.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000080.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000080.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000080.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000080.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000072.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000072.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000072.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000072.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000098.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000098.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000098.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000098.tar
+----------------------------------------------------------------
+Processing: csl_large/test/test-000011.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/test/test-000011.tar -> /mnt/data2/sign_language_24fps/csl_large/test/test-000011.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/test/test-000011.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000026.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000026.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000026.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000026.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000053.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000053.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000053.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000053.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000054.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000054.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000054.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000054.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000101.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000101.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000101.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000101.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000099.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000099.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000099.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000099.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000011.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000011.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000011.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000011.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000105.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000105.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000105.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000105.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000085.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000085.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000085.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000085.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000020.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000020.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000020.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000020.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000032.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000032.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000032.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000032.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000042.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000042.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000042.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000042.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000106.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000106.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000106.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000106.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000003.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000003.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000003.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000003.tar
+----------------------------------------------------------------
+Processing: csl_large/test/test-000000.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/test/test-000000.tar -> /mnt/data2/sign_language_24fps/csl_large/test/test-000000.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/test/test-000000.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000069.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000069.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000069.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000069.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000024.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000024.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000024.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000024.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000018.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000018.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000018.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000018.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000037.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000037.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000037.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000037.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000044.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000044.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000044.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000044.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000023.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000023.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000023.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000023.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000077.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000077.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000077.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000077.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000025.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000025.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000025.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000025.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000009.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000009.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000009.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000009.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000083.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000083.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000083.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000083.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000048.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000048.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000048.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000048.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000007.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000007.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000007.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000007.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000010.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000010.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000010.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000010.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000016.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000016.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000016.tar
+  samples=1000 skipped=0
+Successfully completed: csl_large/train/train-000016.tar
+----------------------------------------------------------------
+Processing: csl_large/train/train-000120.tar
+/opt/conda/envs/pear/lib/python3.10/site-packages/lightning_fabric/__init__.py:40: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+/opt/conda/envs/pear/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Processing /home/slimelab/Projects/slt/islr/webdataset_224/csl_large/train/train-000120.tar -> /mnt/data2/sign_language_24fps/csl_large/train/train-000120.tar
+  samples=632 skipped=0
+Successfully completed: csl_large/train/train-000120.tar
+Completed list: webdataset_224_list_2.txt

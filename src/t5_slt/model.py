@@ -29,6 +29,7 @@ class SignLanguageT5(nn.Module):
         self.model_name_or_path = model_name_or_path
         self.attn_implementation = attn_implementation
         self.use_efficient = use_efficient
+        self.efficient_compile = efficient_compile
 
         config = AutoConfig.from_pretrained(model_name_or_path)
         load_kwargs: dict[str, Any] = {}
@@ -56,7 +57,11 @@ class SignLanguageT5(nn.Module):
 
         self.config = self.t5.config
         self.feature_projection = nn.Sequential(
+            nn.LayerNorm(feature_dim),
             nn.Linear(feature_dim, self.config.d_model),
+            nn.GELU(),
+            nn.Dropout(projection_dropout),
+            nn.Linear(self.config.d_model, self.config.d_model),
             nn.Dropout(projection_dropout),
         )
 
@@ -107,6 +112,8 @@ class SignLanguageT5(nn.Module):
             prompt_input_ids=prompt_input_ids,
             prompt_attention_mask=prompt_attention_mask,
         )
+        if self.use_efficient and self.efficient_compile and hasattr(torch.compiler, "cudagraph_mark_step_begin"):
+            torch.compiler.cudagraph_mark_step_begin()
         kwargs.pop("length", None)
         kwargs.pop("sample_ids", None)
         kwargs.pop("video_paths", None)
@@ -115,21 +122,6 @@ class SignLanguageT5(nn.Module):
         kwargs.pop("target_texts", None)
         kwargs.pop("prompt_texts", None)
         kwargs.pop("num_items_in_batch", None)
-
-        if self.use_efficient and labels is not None:
-            # Shift labels to create decoder_input_ids (same as T5 internals)
-            decoder_input_ids = self.t5._shift_right(labels)
-            outputs = self.t5(
-                inputs_embeds=inputs_embeds,
-                attention_mask=attention_mask,
-                decoder_input_ids=decoder_input_ids,
-                labels=None,
-                **kwargs,
-            )
-            from .kernels import fast_cross_entropy_loss
-
-            outputs.loss = fast_cross_entropy_loss(outputs.logits, labels)
-            return outputs
 
         return self.t5(
             inputs_embeds=inputs_embeds,
@@ -153,6 +145,8 @@ class SignLanguageT5(nn.Module):
             prompt_input_ids=prompt_input_ids,
             prompt_attention_mask=prompt_attention_mask,
         )
+        if self.use_efficient and self.efficient_compile and hasattr(torch.compiler, "cudagraph_mark_step_begin"):
+            torch.compiler.cudagraph_mark_step_begin()
         encoder_outputs = self.t5.encoder(
             inputs_embeds=inputs_embeds,
             attention_mask=attention_mask,

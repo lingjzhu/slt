@@ -15,7 +15,7 @@ from torch.utils.data import (ConcatDataset, DataLoader, DistributedSampler,
 
 from .data.video_dataset import VideoDataset
 from .models import sign_hiera_mae
-from .models.sign_hiera_mae im  port MaskedAutoencoderSignHiera
+from .models.sign_hiera_mae import MaskedAutoencoderSignHiera
 from .utils import misc
 
 
@@ -62,6 +62,11 @@ def create_dataloader(cfg: DictConfig) -> DataLoader:
     else:
         sampler = RandomSampler(dataset)
 
+    # prefetch_factor is only valid when num_workers > 0
+    extra_kwargs = {}
+    if cfg.common.num_workers > 0:
+        extra_kwargs["prefetch_factor"] = getattr(cfg.common, "prefetch_factor", 4)
+
     dataloader = DataLoader(
         dataset,
         sampler=sampler,
@@ -70,6 +75,7 @@ def create_dataloader(cfg: DictConfig) -> DataLoader:
         pin_memory=cfg.common.pin_mem,
         persistent_workers=cfg.common.persistent_workers,
         drop_last=True,
+        **extra_kwargs,
     )
     return dataloader
 
@@ -83,14 +89,16 @@ def create_optimizer_and_loss_scaler(
         cfg.optim.weight_decay,
         bias_wd=cfg.optim.bias_wd,
     )
-    adamw_cls = getattr(torch.optim, "_multi_tensor", None)
-    if adamw_cls is not None and hasattr(adamw_cls, "AdamW"):
-        optimizer = adamw_cls.AdamW(
+    # Prefer the fused CUDA AdamW kernel (single kernel vs foreach launches).
+    # Profile showed AdamW.step at ~15% of CUDA time with the foreach path.
+    try:
+        optimizer = torch.optim.AdamW(
             param_groups,
             lr=cfg.optim.lr,
             betas=(cfg.optim.adam_beta1, cfg.optim.adam_beta2),
+            fused=True,
         )
-    else:
+    except (RuntimeError, TypeError):
         optimizer = torch.optim.AdamW(
             param_groups,
             lr=cfg.optim.lr,

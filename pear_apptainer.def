@@ -1,0 +1,55 @@
+Bootstrap: docker
+From: ubuntu:24.04
+
+%files
+    PEAR/requirements.txt /opt/requirements.txt
+
+%environment
+    export PATH=/opt/conda/envs/pear/bin:$PATH
+    export MAMBA_ROOT_PREFIX=/opt/conda
+    export LC_ALL=C.UTF-8
+    export LANG=C.UTF-8
+
+%post
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get update && apt-get install -y --no-install-recommends \
+        wget ca-certificates git build-essential ffmpeg libglib2.0-0 libgl1 bzip2 curl
+    
+    # Install micromamba
+    curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj -C /usr bin/micromamba
+    ln -s /usr/bin/micromamba /usr/bin/conda
+    
+    export MAMBA_ROOT_PREFIX=/opt/conda
+    /usr/bin/micromamba create -y -n pear -c conda-forge python=3.10
+    
+    # Install chumpy via micromamba (more reliable than pip for this old package)
+    /usr/bin/micromamba install -y -n pear -c conda-forge chumpy
+    
+    PIP="/opt/conda/envs/pear/bin/pip"
+    
+    # 0. Upgrade pip tools
+    $PIP install --upgrade pip setuptools wheel
+    
+    # 1. Install non-ML dependencies
+    grep -vE "^(torch|torchvision|torchaudio|opencv-|lightning|kornia|pytorch-lightning|numpy|chumpy)" /opt/requirements.txt > /opt/reqs_base.txt
+    $PIP install "numpy<2.0"
+    $PIP install -r /opt/reqs_base.txt
+    $PIP install av opencv-python-headless
+    
+    # 2. Install specific Torch version
+    $PIP install torch==2.1.0+cu121 torchvision==0.16.0+cu121 torchaudio==2.1.0+cu121 --index-url https://download.pytorch.org/whl/cu121
+    
+    # 3. Install remaining ML packages
+    $PIP install pytorch-lightning==2.1.0 kornia==0.8.1 lightning-utilities==0.15.2
+    
+    # 4. Install PyTorch3D
+    $PIP install pytorch3d -f https://dl.fbaipublicfiles.com/pytorch3d/packaging/wheels/py310_cu121_pyt210/download.html
+    
+    # 5. FORCE REINSTALL NUMPY < 2.0 (MUST BE LAST)
+    $PIP install "numpy<2.0" --force-reinstall
+
+    # Cleanup
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+%runscript
+    exec python "$@"

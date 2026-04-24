@@ -1,0 +1,10 @@
+{
+  "YoutubeASL_processed": "/mnt/data2/sign_language_24fps/processed_24fps/YoutubeASL_processed/00495.tar",
+  "how2sign_24fps": "/mnt/data2/sign_language_24fps/processed_24fps/how2sign_24fps/train/00004.tar",
+  "bobsl_24fps": "/mnt/data2/sign_language_24fps/processed_24fps/bobsl_24fps/train/6201983885815812975.tar",
+  "csl_news": "/mnt/data2/sign_language_24fps/processed_24fps/csl_news/00193.tar",
+  "openasl_24fps": "/mnt/data2/sign_language_24fps/processed_24fps/openasl_24fps/train/00012.tar",
+  "bobsl_24fps_manual": "/mnt/data2/sign_language_24fps/processed_24fps/bobsl_24fps_manual/train/5391892065246550398.tar",
+  "dailymoth-70h": "/mnt/data2/sign_language_24fps/processed_24fps/dailymoth-70h/train/00001.tar",
+  "csl_daily_24fps": "/mnt/data2/sign_language_24fps/processed_24fps/csl_daily_24fps/train.tar"
+}
