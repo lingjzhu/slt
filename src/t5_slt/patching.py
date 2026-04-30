@@ -2,7 +2,9 @@
 
 Applies three optimizations (all standalone, no external deps beyond torch/triton):
 
-1. **Triton RMS LayerNorm** – replaces every ``T5LayerNorm`` forward pass.
+1. **Triton RMS LayerNorm** – optional replacement for every
+   ``T5LayerNorm`` forward pass. Disabled by default for training because the
+   local Triton backward does not currently produce layernorm weight gradients.
 2. **SDPA Attention** – replaces the manual Q*K^T → softmax → V matmul in
    ``T5Attention.forward`` with ``F.scaled_dot_product_attention``, which
    dispatches to memory-efficient attention kernels.  T5's relative position
@@ -322,6 +324,7 @@ def _compile_model(model: nn.Module) -> None:
 def patch_t5_for_efficiency(
     model: nn.Module,
     *,
+    rms_layernorm: bool = False,
     sdpa_attention: bool = False,
     flex_attention: bool = True,
     compile: bool = False,
@@ -339,7 +342,7 @@ def patch_t5_for_efficiency(
     Returns a dict with counts of patched modules.
     """
     stats: dict[str, int] = {}
-    stats["layernorms"] = _patch_layernorms(model)
+    stats["layernorms"] = _patch_layernorms(model) if rms_layernorm else 0
     if flex_attention:
         if not _HAS_FLEX:
             raise RuntimeError("FlexAttention unavailable; requires PyTorch >= 2.5")

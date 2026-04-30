@@ -5,6 +5,8 @@ outputs/
 wandb/
 local/pretrained/
 *.sif
+data/
+*cookies*.txt
 
 __pycache__/
 *.py[cod]

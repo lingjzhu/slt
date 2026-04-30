@@ -60,6 +60,20 @@ _DATASET_LANGUAGE_MAP = {
     "csl_large": "csl",
 }
 
+# Gesture pretraining shards (PEAR-format npz + txt caption + json) for translation.
+_GESTURE_DATASET_LANGUAGE: dict[str, str] = {
+    "how2sign_24fps": "asl",
+    "openasl_24fps": "asl",
+    "dailymoth-70h": "asl",
+    "YoutubeASL_processed": "asl",
+    "bobsl_24fps": "bsl",
+    "bobsl_24fps_manual": "bsl",
+    "csl_daily_24fps": "csl",
+    "csl_news": "csl",
+}
+
+_VAL_ALIASES = ("val", "dev", "valid", "validation")
+
 _FEATURE_KEYS = (
     "body/global_pose",
     "body/body_pose",
@@ -78,13 +92,26 @@ _FEATURE_KEYS = (
     "camera/pd_cam",
 )
 
+_SEPARATOR_RE = re.compile(r"[_\-/]+")
+_ALNUM_BOUNDARY_RE = re.compile(r"(?<=[^\W\d_])(?=\d)|(?<=\d)(?=[^\W\d_])", re.UNICODE)
+_LATIN_RE = re.compile(r"[a-z]")
+
 
 def _normalize_english_text(text: str) -> str:
-    text = unicodedata.normalize("NFKC", text).strip().lower()
-    text = text.replace("_", " ").replace("-", " ")
+    text = unicodedata.normalize("NFKC", text or "").strip()
+    text = _SEPARATOR_RE.sub(" ", text)
+    text = _ALNUM_BOUNDARY_RE.sub(" ", text)
+    text = text.lower()
     text = re.sub(r"[^\w\s]", " ", text, flags=re.UNICODE)
     text = re.sub(r"\s+", " ", text)
-    return text.strip()
+    text = text.strip()
+    if not text:
+        return ""
+    tokens = text.split()
+    if len(tokens) > 1 and _LATIN_RE.search(text):
+        while len(tokens) > 1 and tokens[-1].isdigit():
+            tokens.pop()
+    return " ".join(tokens)
 
 
 def _normalize_chinese_text(text: str) -> str:
@@ -365,6 +392,151 @@ def build_webdataset_manifest(
     return manifest_path
 
 
+def _gesture_split_dirs(data_root: Path, dataset_name: str, split: str) -> list[Path]:
+    """Resolve possible directories/files holding tar shards for a (dataset, split)."""
+    ds_dir = data_root / dataset_name
+    if not ds_dir.exists():
+        return []
+
+    candidates: list[Path] = []
+    if split == "val":
+        names = tuple(dict.fromkeys((split,) + _VAL_ALIASES))
+    else:
+        names = (split,)
+
+    for name in names:
+        d = ds_dir / name
+        if d.is_dir():
+            tars = sorted(d.glob("*.tar"))
+            if tars:
+                return tars
+        f = ds_dir / f"{name}.tar"
+        if f.is_file():
+            candidates.append(f)
+    if candidates:
+        return candidates
+
+    if split == "train":
+        return sorted(ds_dir.glob("*.tar"))
+    return []
+
+
+def build_gesture_translation_manifest(
+    *,
+    split: str,
+    manifest_path: str | Path,
+    data_root: str | Path,
+    datasets: set[str] | None = None,
+    languages: set[str] | None = None,
+) -> Path:
+    """Build a TSV manifest over gesture pretraining shards for translation.
+
+    Each tar shard is expected to contain triples ``<key>.npz / .txt / .json``
+    where ``.npz`` holds PEAR per-frame features, ``.txt`` is the caption, and
+    ``.json`` carries ``num_frames``. The resulting manifest is consumed by
+    :class:`SignTarFeatureDataset`.
+    """
+    data_root = Path(data_root)
+    manifest_path = Path(manifest_path)
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
+
+    target_datasets = sorted(datasets or _GESTURE_DATASET_LANGUAGE.keys())
+    rows: list[dict[str, Any]] = []
+
+    for dataset_name in target_datasets:
+        language = _GESTURE_DATASET_LANGUAGE.get(dataset_name)
+        if language is None:
+            continue
+        if languages and language not in languages:
+            continue
+
+        tars = _gesture_split_dirs(data_root, dataset_name, split)
+        if not tars:
+            continue
+
+        for tar_path in tars:
+            try:
+                with tarfile.open(tar_path, "r") as handle:
+                    grouped: dict[str, dict[str, Any]] = {}
+                    for member in handle:
+                        if not member.isfile():
+                            continue
+                        stem, _, ext = member.name.rpartition(".")
+                        if not stem or ext not in {"npz", "txt", "json"}:
+                            continue
+                        sample_id = Path(stem).name
+                        bucket = grouped.setdefault(sample_id, {})
+                        if ext == "txt":
+                            with handle.extractfile(member) as fh:
+                                if fh is None:
+                                    continue
+                                bucket["caption"] = fh.read().decode("utf-8", errors="replace").strip()
+                        elif ext == "json":
+                            with handle.extractfile(member) as fh:
+                                if fh is None:
+                                    continue
+                                bucket["meta"] = json.load(fh)
+                        else:
+                            bucket["npz_member"] = member.name
+
+                    for sample_id, bucket in grouped.items():
+                        npz_member = bucket.get("npz_member")
+                        caption = bucket.get("caption")
+                        meta = bucket.get("meta", {})
+                        if not npz_member or not caption:
+                            continue
+                        num_frames = int(meta.get("num_frames", 0)) if isinstance(meta, dict) else 0
+                        if num_frames <= 0:
+                            continue
+                        normalized = normalize_text(caption, language)
+                        if not normalized:
+                            continue
+                        rows.append(
+                            {
+                                "sample_id": sample_id,
+                                "tar_path": str(tar_path.resolve()),
+                                "npz_member": npz_member,
+                                "dataset": dataset_name,
+                                "split": split,
+                                "language": language,
+                                "sign_language": get_sign_language_name(language),
+                                "output_language": get_output_language_name(language),
+                                "caption": normalized,
+                                "num_feature_vectors": num_frames,
+                            }
+                        )
+            except (tarfile.TarError, OSError) as exc:
+                print(f"[gesture-manifest] skipping {tar_path}: {exc}")
+
+    if not rows:
+        raise ValueError(
+            f"No translation samples found for split={split} under {data_root} "
+            f"(datasets={sorted(target_datasets)}, languages={sorted(languages) if languages else 'any'})"
+        )
+
+    with manifest_path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=[
+                "sample_id",
+                "tar_path",
+                "npz_member",
+                "dataset",
+                "split",
+                "language",
+                "sign_language",
+                "output_language",
+                "caption",
+                "num_feature_vectors",
+            ],
+            delimiter="\t",
+        )
+        writer.writeheader()
+        writer.writerows(rows)
+
+    return manifest_path
+
+
 def load_tar_manifest(
     manifest_path: str | Path,
     *,
@@ -487,6 +659,134 @@ class SignTarFeatureDataset(Dataset):
             "input_features": features,
             "length": features.size(0),
         }
+
+
+def discover_gesture_translation_shards(
+    data_root: str | Path,
+    split: str,
+    *,
+    datasets: set[str] | None = None,
+    languages: set[str] | None = None,
+) -> list[str]:
+    """List gesture WebDataset shards without opening tar contents."""
+    data_root = Path(data_root)
+    target_datasets = sorted(datasets or _GESTURE_DATASET_LANGUAGE.keys())
+    shards: list[str] = []
+
+    for dataset_name in target_datasets:
+        language = _GESTURE_DATASET_LANGUAGE.get(dataset_name)
+        if language is None:
+            continue
+        if languages and language not in languages:
+            continue
+        shards.extend(str(path.resolve()) for path in _gesture_split_dirs(data_root, dataset_name, split))
+
+    if not shards:
+        raise FileNotFoundError(
+            f"No gesture WebDataset shards found for split={split} under {data_root} "
+            f"(datasets={target_datasets}, languages={sorted(languages) if languages else 'any'})"
+        )
+    return shards
+
+
+def _tag_gesture_webdataset_sample(sample: dict[str, Any]) -> dict[str, Any]:
+    url = sample.get("__url__", "")
+    dataset_name = ""
+    for part in reversed(Path(url).parts):
+        if part in _GESTURE_DATASET_LANGUAGE:
+            dataset_name = part
+            break
+    language = _GESTURE_DATASET_LANGUAGE.get(dataset_name, "")
+    sample["__dataset__"] = dataset_name
+    sample["__language__"] = language
+    return sample
+
+
+def _gesture_webdataset_sample_to_row(
+    sample: dict[str, Any],
+    *,
+    max_source_length: int | None,
+    prompt_template: str,
+) -> dict[str, Any] | None:
+    try:
+        npz_bytes = sample.get("npz")
+        txt_bytes = sample.get("txt")
+        if npz_bytes is None or txt_bytes is None:
+            return None
+
+        language = str(sample.get("__language__", "")).strip().lower()
+        caption = normalize_text(txt_bytes.decode("utf-8", errors="replace"), language)
+        if not caption:
+            return None
+
+        features = _load_npz_features(npz_bytes).float()
+        if features.ndim != 2 or features.size(0) <= 0:
+            return None
+        if max_source_length is not None:
+            features = features[:max_source_length]
+
+        dataset_name = str(sample.get("__dataset__", ""))
+        sample_id = str(sample.get("__key__", ""))
+        url = str(sample.get("__url__", ""))
+        return {
+            "sample_id": sample_id,
+            "video_path": f"{url}:{sample_id}.npz" if url and sample_id else url,
+            "dataset_name": dataset_name,
+            "language": language,
+            "target_text": caption,
+            "prompt_text": prompt_template.format(
+                sign_language=get_sign_language_name(language),
+                language=get_output_language_name(language),
+            ),
+            "input_features": features,
+            "length": features.size(0),
+        }
+    except Exception:
+        return None
+
+
+def build_streaming_gesture_translation_dataset(
+    shards: list[str],
+    *,
+    split: str,
+    prompt_template: str,
+    max_source_length: int | None,
+    shuffle_buffer: int = 1000,
+):
+    """Build a streaming WebDataset pipeline for gesture translation.
+
+    Training uses ``ResampledShards`` so the stream is endless and HF Trainer
+    controls its duration with ``max_steps``. Eval/test use finite shard
+    traversal split across distributed ranks/workers.
+    """
+    import webdataset as wds
+
+    stages: list[Any]
+    if split == "train":
+        stages = [wds.ResampledShards(shards), wds.tarfile_to_samples(handler=wds.warn_and_continue)]
+        if shuffle_buffer > 0:
+            stages.append(wds.shuffle(shuffle_buffer))
+    else:
+        stages = [
+            wds.SimpleShardList(shards),
+            wds.split_by_node,
+            wds.split_by_worker,
+            wds.tarfile_to_samples(handler=wds.warn_and_continue),
+        ]
+    stages.extend(
+        [
+            wds.map(_tag_gesture_webdataset_sample),
+            wds.map(
+                lambda sample: _gesture_webdataset_sample_to_row(
+                    sample,
+                    max_source_length=max_source_length,
+                    prompt_template=prompt_template,
+                )
+            ),
+            wds.select(lambda row: row is not None),
+        ]
+    )
+    return wds.DataPipeline(*stages)
 
 
 class SignT5Collator:

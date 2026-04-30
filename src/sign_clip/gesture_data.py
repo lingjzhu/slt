@@ -1,19 +1,28 @@
 from __future__ import annotations
 
 import io
+import logging
 import tarfile
 from pathlib import Path
 from typing import Any, Optional
 
 import numpy as np
 import torch
-from torch.utils.data import DataLoader, Dataset, DistributedSampler
+from torch.utils.data import DataLoader, Dataset, DistributedSampler, IterableDataset
 from transformers import PreTrainedTokenizerBase
 
-from t5_slt.data import build_webdataset_manifest, load_tar_manifest
+from t5_slt.data import (
+    build_gesture_translation_manifest,
+    build_streaming_gesture_translation_dataset,
+    discover_gesture_translation_shards,
+    load_tar_manifest,
+)
 
-from .data import DatasetConfig, DEFAULT_DATASET_CONFIGS, load_label_bank
+from .data import DatasetConfig, load_label_bank
 from .text import normalize_sign_text
+
+
+logger = logging.getLogger(__name__)
 
 
 _FEATURE_KEYS = (
@@ -32,6 +41,18 @@ _FEATURE_KEYS = (
     "flame/expression_params",
     "flame/shape_params",
     "camera/pd_cam",
+)
+
+
+DEFAULT_DATASET_CONFIGS = (
+    DatasetConfig(name="how2sign_24fps", root=Path(), language="asl", train_split="train", eval_split="val"),
+    DatasetConfig(name="openasl_24fps", root=Path(), language="asl", train_split="train", eval_split="val"),
+    DatasetConfig(name="dailymoth-70h", root=Path(), language="asl", train_split="train", eval_split="val"),
+    DatasetConfig(name="YoutubeASL_processed", root=Path(), language="asl", train_split="train", eval_split="val"),
+    DatasetConfig(name="bobsl_24fps", root=Path(), language="bsl", train_split="train", eval_split="val"),
+    DatasetConfig(name="bobsl_24fps_manual", root=Path(), language="bsl", train_split="train", eval_split="val"),
+    DatasetConfig(name="csl_daily_24fps", root=Path(), language="csl", train_split="train", eval_split="val"),
+    DatasetConfig(name="csl_news", root=Path(), language="csl", train_split="train", eval_split="val"),
 )
 
 
@@ -91,6 +112,17 @@ class GestureTarDataset(Dataset):
         }
 
 
+def _translation_row_to_sign_clip(row: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "sample_id": row["sample_id"],
+        "dataset_name": row["dataset_name"],
+        "language": row["language"],
+        "target_text": normalize_sign_text(row["target_text"]),
+        "gesture": row["input_features"],
+        "num_padding_frames": 0,
+    }
+
+
 class GestureSignClipCollator:
     def __init__(
         self,
@@ -145,9 +177,7 @@ def prepare_gesture_manifests(
     *,
     manifest_dir: str | Path,
     data_root: str | Path,
-    metadata_root: str | Path,
     dataset_configs: list[DatasetConfig],
-    csl_val_ratio: float,
 ) -> dict[str, Path]:
     manifest_dir = Path(manifest_dir)
     manifest_dir.mkdir(parents=True, exist_ok=True)
@@ -160,15 +190,25 @@ def prepare_gesture_manifests(
         "test": manifest_dir / "test_gesture.tsv",
     }
     for split, path in paths.items():
-        if not path.exists():
-            build_webdataset_manifest(
+        rebuild = not path.exists()
+        if not rebuild:
+            try:
+                with path.open("r", encoding="utf-8") as handle:
+                    header = handle.readline().rstrip("\n").split("\t")
+                    first = handle.readline().rstrip("\n").split("\t")
+                tar_idx = header.index("tar_path")
+                first_tar = Path(first[tar_idx])
+                rebuild = not first_tar.is_relative_to(Path(data_root))
+            except (IndexError, OSError, ValueError):
+                rebuild = True
+
+        if rebuild:
+            build_gesture_translation_manifest(
                 split=split,
                 manifest_path=path,
                 data_root=data_root,
-                metadata_root=metadata_root,
                 datasets=datasets,
                 languages=languages,
-                csl_val_ratio=csl_val_ratio,
             )
     return paths
 
@@ -178,18 +218,27 @@ def build_train_dataset(
     *,
     manifest_dir: str | Path,
     data_root: str | Path,
-    metadata_root: str | Path,
     max_frames: int,
-    csl_val_ratio: float,
-) -> GestureTarDataset:
-    manifests = prepare_gesture_manifests(
-        manifest_dir=manifest_dir,
-        data_root=data_root,
-        metadata_root=metadata_root,
-        dataset_configs=dataset_configs,
-        csl_val_ratio=csl_val_ratio,
+) -> Any:
+    datasets = {config.name for config in dataset_configs}
+    languages = {config.language for config in dataset_configs}
+    shards = discover_gesture_translation_shards(
+        data_root,
+        "train",
+        datasets=datasets,
+        languages=languages,
     )
-    return GestureTarDataset(manifests["train"], max_frames=max_frames)
+    logger.info("streaming %d gesture train shards from %s", len(shards), data_root)
+    dataset = build_streaming_gesture_translation_dataset(
+        shards,
+        split="train",
+        prompt_template="",
+        max_source_length=max_frames,
+    )
+    import webdataset as wds
+
+    dataset.append(wds.map(_translation_row_to_sign_clip))
+    return dataset
 
 
 def build_eval_dataset(
@@ -197,23 +246,19 @@ def build_eval_dataset(
     *,
     manifest_dir: str | Path,
     data_root: str | Path,
-    metadata_root: str | Path,
     max_frames: int,
-    csl_val_ratio: float,
 ) -> GestureTarDataset:
     manifests = prepare_gesture_manifests(
         manifest_dir=manifest_dir,
         data_root=data_root,
-        metadata_root=metadata_root,
         dataset_configs=[config],
-        csl_val_ratio=csl_val_ratio,
     )
     split = "val" if config.eval_split == "val" else "test"
     return GestureTarDataset(manifests[split], max_frames=max_frames)
 
 
 def build_dataloader(
-    dataset: Dataset,
+    dataset: Any,
     *,
     collate_fn,
     batch_size: int,
@@ -222,20 +267,26 @@ def build_dataloader(
     shuffle: bool,
 ) -> tuple[DataLoader, Optional[DistributedSampler]]:
     sampler: Optional[DistributedSampler] = None
-    if torch.distributed.is_available() and torch.distributed.is_initialized():
+    is_iterable = isinstance(dataset, IterableDataset) or not hasattr(dataset, "__len__")
+    if (
+        not is_iterable
+        and torch.distributed.is_available()
+        and torch.distributed.is_initialized()
+    ):
         sampler = DistributedSampler(dataset, shuffle=shuffle, drop_last=shuffle)
         shuffle = False
 
-    loader = DataLoader(
-        dataset,
+    kwargs: dict[str, Any] = dict(
         batch_size=batch_size,
-        shuffle=shuffle,
-        sampler=sampler,
         num_workers=num_workers,
         collate_fn=collate_fn,
         pin_memory=pin_memory,
         persistent_workers=num_workers > 0,
     )
+    if not is_iterable:
+        kwargs["shuffle"] = shuffle
+        kwargs["sampler"] = sampler
+    loader = DataLoader(dataset, **kwargs)
     return loader, sampler
 
 
